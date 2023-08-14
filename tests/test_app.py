@@ -11,7 +11,7 @@ class TestApp:
         App.run()
 
         assert [date for date in capsys.readouterr().out.split("\n") if date != ""] == [
-            datetime.now().strftime(DEFAULT_DATE_FORMAT)
+            datetime.today().strftime(DEFAULT_DATE_FORMAT)
         ]
 
     @pytest.mark.parametrize(
@@ -30,7 +30,6 @@ class TestApp:
             "2020-01-02",
             "2020-01-03",
             "2020-01-04",
-            "2020-01-05",
         ]
 
     @pytest.mark.parametrize(
@@ -38,12 +37,12 @@ class TestApp:
         ["%Y-%m-%d", "%Y/%m/%d"],
     )
     def test_input_format(self, capsys: pytest.CaptureFixture, format: str):
-        now = datetime.now()
+        today = datetime.today()
 
-        App.run([now.strftime(format), "--input-date-format", format])
+        App.run([today.strftime(format), "--input-date-format", format])
 
         assert [date for date in capsys.readouterr().out.split("\n") if date != ""] == [
-            now.strftime(DEFAULT_DATE_FORMAT)
+            today.strftime(DEFAULT_DATE_FORMAT)
         ]
 
     @pytest.mark.parametrize(
@@ -51,10 +50,10 @@ class TestApp:
         ["%Y-%m-%d", "%Y/%m/%d"],
     )
     def test_output_format(self, capsys: pytest.CaptureFixture, format: str):
-        now = datetime.now()
+        today = datetime.today()
 
-        App.run([now.strftime(DEFAULT_DATE_FORMAT), "--output-date-format", format])
+        App.run([today.strftime(DEFAULT_DATE_FORMAT), "--output-date-format", format])
 
         assert [date for date in capsys.readouterr().out.split("\n") if date != ""] == [
-            datetime.now().strftime(format)
+            datetime.today().strftime(format)
         ]

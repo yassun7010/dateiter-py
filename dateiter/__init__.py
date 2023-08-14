@@ -20,10 +20,14 @@ def dateiter(
     )
 
     end_date = datetime.strptime(
-        end if end is not None else datetime.now().strftime(format),
+        (
+            end
+            if end is not None
+            else (datetime.today() + timedelta(days=1)).strftime(format)
+        ),
         format,
     )
 
-    while start_date <= end_date:
+    while start_date < end_date:
         yield start_date
         start_date += timedelta(days=step)

@@ -91,7 +91,7 @@ class App:
             elif space.end_date is not None:
                 start_date = space.end_date
             else:
-                start_date = datetime.now().strftime(space.input_date_format)
+                start_date = datetime.today().strftime(space.input_date_format)
 
         if space.end_date is not None:
             end_date = space.end_date
