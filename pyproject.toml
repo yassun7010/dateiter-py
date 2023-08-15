@@ -2,7 +2,7 @@
 name = "dateiter"
 version = "1.0.0"
 description = ""
-authors = ["yassun4dev <yassun4dev@outlook.com>"]
+authors = ["yassun7010 <yassun7010@outlook.com>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
