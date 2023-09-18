@@ -11,6 +11,18 @@
 
 Simple date iterator tool.
 
+## Install
+
+```sh
+pip install dateiter
+```
+
+OR
+
+```sh
+pipx install dataiter
+```
+
 ## Usage
 ```sh
 for date in $(dateiter 2020-01-01 2020-01-05); do
