@@ -1,9 +1,13 @@
 {
+  // チームに入れて欲しい拡張を入れておく
   "recommendations": [
-    "ms-python.black-formatter",
-    "ms-python.isort",
     "ms-python.python",
-    "ms-python.vscode-pylance",
-    "charliermarsh.ruff"
+    "ms-python.black-formatter",
+    "charliermarsh.ruff",
+  ],
+  // チームに使って欲しくない拡張を入れておく
+  "unwantedRecommendations": [
+    "ms-python.flake8",
+    "ms-python.pylint"
   ]
 }
