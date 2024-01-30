@@ -1,6 +1,6 @@
 import importlib.metadata
-from datetime import datetime, timedelta
-from typing import Any, Generator
+from datetime import date, datetime, timedelta
+from typing import Any, Generator, assert_never
 
 __version__ = importlib.metadata.version("dateiter")
 
@@ -9,18 +9,33 @@ DEFAULT_DATE_FORMAT = "%Y-%m-%d"
 
 
 def dateiter(
-    start: str | datetime,
-    end: str | datetime | None,
+    start: str | datetime | date,
+    end: str | datetime | date | None,
     step: int = 1,
     format: str = DEFAULT_DATE_FORMAT,
 ) -> Generator[datetime, Any, None]:
-    start_date = datetime.strptime(start, format) if isinstance(start, str) else start
+    match start:
+        case str():
+            start_datetime = datetime.strptime(start, format)
+        case date():
+            start_datetime = datetime.combine(start, datetime.min.time())
+        case datetime():
+            start_datetime = start
+        case _:
+            assert_never(start)
 
-    if end is None:
-        end = (datetime.today() + timedelta(days=1)).strftime(format)
+    match end:
+        case None:
+            end_datetime = datetime.today()
+        case str():
+            end_datetime = datetime.strptime(end, format)
+        case date():
+            end_datetime = datetime.combine(end, datetime.min.time())
+        case datetime():
+            end_datetime = end
+        case _:
+            assert_never(end)
 
-    end_date = datetime.strptime(end, format) if isinstance(end, str) else end
-
-    while start_date < end_date:
-        yield start_date
-        start_date += timedelta(days=step)
+    while start_datetime < end_datetime:
+        yield start_datetime
+        start_datetime += timedelta(days=step)
